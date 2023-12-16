@@ -7,3 +7,4 @@ variable "port" {}
 variable "ssh_ingress_cidr" {}
 variable "sg_ingress_cidr" {}
 variable "zone_id" {}
+variable "instance_type" {}
