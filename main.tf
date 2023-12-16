@@ -41,7 +41,7 @@ resource "aws_launch_template" "main" {
 
   tag_specifications {
     resource_type = "instance"
-    tags        = merge(local.tags, { name = "${local.name_prefix}-ec2" })
+    tags        = merge(local.tags, { Name = "${local.name_prefix}-ec2" })
   }
 }
 
