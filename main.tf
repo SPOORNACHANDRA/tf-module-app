@@ -31,7 +31,7 @@ resource "aws_launch_template" "main" {
   user_data = base64encode(templatefile("${path.module}/userdata.sh",
     {
       component = var.component
-      env       = var.env
+
     }))
 
   tag_specifications {
@@ -42,7 +42,7 @@ resource "aws_launch_template" "main" {
 
 
 resource "aws_autoscaling_group" "main" {
-  name                = "${local.name_prefix}-asg"
+  name                = local.name_prefix
   vpc_zone_identifier = var.subnet_ids
   desired_capacity    = var.desired_capacity
   max_size            = var.max_size
