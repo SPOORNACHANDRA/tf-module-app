@@ -19,7 +19,6 @@ resource "aws_security_group" "main" {
     protocol    = "tcp"
     cidr_blocks = var.ssh_ingress_cidr
   }
-
 }
 
 resource "aws_launch_template" "main" {
@@ -31,13 +30,15 @@ resource "aws_launch_template" "main" {
   user_data = base64encode(templatefile("${path.module}/userdata.sh",
     {
       component = var.component
-
+      env       = var.env
     }))
+
 
   tag_specifications {
     resource_type = "instance"
     tags          = merge(local.tags, { Name = "${local.name_prefix}-ec2" })
   }
+
 }
 
 
