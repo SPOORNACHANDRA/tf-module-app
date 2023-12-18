@@ -28,51 +28,51 @@ resource "aws_security_group" "main" {
   }
 }
 
-#resource "aws_launch_template" "main" {
-#  name                   = local.name_prefix
-#  image_id               = data.aws_ami.ami.id
-#  instance_type          = var.instance_type
-#  vpc_security_group_ids = [aws_security_group.main.id]
-#
-#  user_data = base64encode(templatefile("${path.module}/userdata.sh",
-#    {
-#      component = var.component
-#      env       = var.env
-#    }))
-#
-#
-#  tag_specifications {
-#    resource_type = "instance"
-#    tags          = merge(local.tags, { Name = "${local.name_prefix}-ec2" })
-#  }
-#
-#}
-#
-#
-#resource "aws_autoscaling_group" "main" {
-#  name                = "${local.name_prefix}-asg"
-#  vpc_zone_identifier = var.subnet_ids
-#  desired_capacity    = var.desired_capacity
-#  max_size            = var.max_size
-#  min_size            = var.min_size
-#
-#  launch_template {
-#    id      = aws_launch_template.main.id
-#    version = "$Latest"
-#  }
-#  tag {
-#    key                 = "Name"
-#    value               = local.name_prefix
-#    propagate_at_launch = true
-#  }
-#}
-#
-#
-#resource "aws_route53_record" "main" {
-#  zone_id = var.zone_id
-#  name    = "${var.component}-${var.env}"
-#  type    = "CNAME"
-#  ttl     = 30
-#  records = [var.alb_name]
-#}
-#
+resource "aws_launch_template" "main" {
+  name                   = local.name_prefix
+  image_id               = data.aws_ami.ami.id
+  instance_type          = var.instance_type
+  vpc_security_group_ids = [aws_security_group.main.id]
+
+  user_data = base64encode(templatefile("${path.module}/userdata.sh",
+    {
+      component = var.component
+      env       = var.env
+    }))
+
+
+  tag_specifications {
+    resource_type = "instance"
+    tags          = merge(local.tags, { Name = "${local.name_prefix}-ec2" })
+  }
+
+}
+
+
+resource "aws_autoscaling_group" "main" {
+  name                = "${local.name_prefix}-asg"
+  vpc_zone_identifier = var.subnet_ids
+  desired_capacity    = var.desired_capacity
+  max_size            = var.max_size
+  min_size            = var.min_size
+
+  launch_template {
+    id      = aws_launch_template.main.id
+    version = "$Latest"
+  }
+  tag {
+    key                 = "Name"
+    value               = local.name_prefix
+    propagate_at_launch = true
+  }
+}
+
+
+resource "aws_route53_record" "main" {
+  zone_id = var.zone_id
+  name    = "${var.component}-${var.env}"
+  type    = "CNAME"
+  ttl     = 30
+  records = [var.alb_name]
+}
+
