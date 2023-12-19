@@ -94,7 +94,7 @@ resource "aws_lb_listener_rule" "main" {
   }
 
   condition {
-    path_pattern {
+    host_header {
       values = [var.component == "frontend" ?" ${ var.env }.poornadevops.online" : "${var.component}-${var.env}.poornadevops.online"]
     }
   }
