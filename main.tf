@@ -116,3 +116,5 @@ resource "aws_lb_target_group_attachment" "public" {
   port             = 80
 #  availability_zone = "all"
 }
+
+
