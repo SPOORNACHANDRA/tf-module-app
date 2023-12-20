@@ -116,9 +116,3 @@ resource "aws_lb_target_group_attachment" "public" {
   port             = 80
 #  availability_zone = "all"
 }
-###resource "aws_lb_target_group_attachment" "public" {
-###  count             = var.component == "frontend" ? length(var.az) : 0
-###  target_group_arn  = aws_lb_target_group.public[0].arn
-###
-###  port              = 80
-###  availability_zone = "all"
