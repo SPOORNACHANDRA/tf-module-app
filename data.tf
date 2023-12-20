@@ -5,4 +5,6 @@ data "aws_ami" "ami" {
 }
 
 
-
+data "dns_a_record_set" "private_alb" {
+  host = var.public_alb_name
+}
