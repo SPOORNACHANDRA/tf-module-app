@@ -55,7 +55,7 @@ resource "aws_autoscaling_group" "main" {
   desired_capacity    = var.desired_capacity
   max_size            = var.max_size
   min_size            = var.min_size
-  target_group_arns = [aws_lb_target_group.main.arn]
+  target_group_arns   = [aws_lb_target_group.main.arn]
 
   launch_template {
     id      = aws_launch_template.main.id
@@ -116,3 +116,21 @@ resource "aws_lb_target_group_attachment" "public" {
   port              = 80
   availability_zone = "all"
 }
+
+resource "aws_lb_listener_rule" "main" {
+  count        = var.component == "frontend" ? 1 : 0
+  listener_arn = var.public_listener
+  priority     = var.lb_priority
+
+  action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.public[0].arn
+  }
+
+  condition {
+    host_header {
+      values = ["${var.env}.poorandevops.online"]
+    }
+  }
+}
+
