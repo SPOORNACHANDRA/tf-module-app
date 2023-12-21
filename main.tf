@@ -27,26 +27,25 @@ resource "aws_security_group" "main" {
     ipv6_cidr_blocks = ["::/0"]
   }
 }
-#
-#resource "aws_launch_template" "main" {
-#  name                   = local.name_prefix
-#  image_id               = data.aws_ami.ami.id
-#  instance_type          = var.instance_type
-#  vpc_security_group_ids = [aws_security_group.main.id]
-#
-#  user_data = base64encode(templatefile("${path.module}/userdata.sh",
-#    {
-#      component = var.component
-#      env       = var.env
-#    }))
-#
-#
-#  tag_specifications {
-#    resource_type = "instance"
-#    tags          = merge(local.tags, { Name = "${local.name_prefix}-ec2" })
-#  }
-#
-#}
+
+resource "aws_launch_template" "main" {
+  name                   = local.name_prefix
+  image_id               = data.aws_ami.ami.id
+  instance_type          = var.instance_type
+  vpc_security_group_ids = [aws_security_group.main.id]
+
+  user_data = base64encode(templatefile("${path.module}/userdata.sh",
+    {
+      component = var.component
+      env       = var.env
+    }))
+
+
+  tag_specifications {
+    resource_type = "instance"
+    tags          = merge(local.tags, { Name = "${local.name_prefix}-ec2" })
+  }
+}
 #
 #
 #resource "aws_autoscaling_group" "main" {
