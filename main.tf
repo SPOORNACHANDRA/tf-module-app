@@ -151,7 +151,7 @@ resource "aws_iam_policy" "main" {
           "ssm:GetParameters",
           "ssm:GetParameter"
         ],
-        "Resource": "arn:aws:ssm:us-east-1:931263538628:parameter/docdb.${var.env}.*"
+        "Resource": "arn:aws:ssm:us-east-1:345292693539:parameter/docdb.${var.env}.*"
       },
       {
         "Sid": "VisualEditor1",
