@@ -18,5 +18,5 @@ variable "public_alb_name" {}
 variable "public_listener" {}
 variable "default_vpc_id" {}
 variable "parameters" {}
-variable "monitoring_ingress_cidr" {}
+#variable "monitoring_ingress_cidr" {}
 
