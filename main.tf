@@ -216,7 +216,7 @@ resource "aws_lb_listener_rule" "main" {
 
   condition {
     host_header {
-      values = [var.component == "frontend" ? "${var.env == "prod" ? "www" : var.env}.poornadevops.online" : "${var.component}-${var.env}.poornadevops.online"]
+      values = [var.component == "frontend" ? "${var.env == "prod" ? "www" : var.env}.devopsproject.online" : "${var.component}-${var.env}.devopsproject.online"]
     }
   }
 }
@@ -264,7 +264,7 @@ resource "aws_lb_listener_rule" "public" {
 
   condition {
     host_header {
-      values = ["${var.env == "prod" ? "www" : var.env}.poornadevops.online"]
+      values = ["${var.env == "prod" ? "www" : var.env}.devopsproject.online"]
     }
   }
 }
